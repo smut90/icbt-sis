@@ -1,0 +1,27 @@
+runtime: php73 # Replace with php74 to use PHP 7.4
+
+runtime_config:
+  document_root: .
+
+handlers:
+  # Serve images as static resources.
+  - url: /(.+\.(gif|png|css|js|jpg))$
+    static_files: \1
+    upload: .+\.(gif|png|css|js|jpg)$
+
+  # Serve a directory as a static resource.
+  - url: /assets
+    static_dir: assets
+
+#  # Serve your app through a front controller at index.php or public/index.php.
+#  - url: /.*
+#    script: auto
+
+entrypoint:
+  serve handler.php
+
+env_variables:
+  CLOUDSQL_USER: root
+  CLOUDSQL_PASSWORD: test
+  CLOUDSQL_DB: abc_sis_db
+  CLOUDSQL_CONNECTION: bitnami-mx-kdbnbjq:asia-south1:abc-sis-db-dev
